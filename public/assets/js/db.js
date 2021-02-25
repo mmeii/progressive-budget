@@ -18,7 +18,7 @@ request.onsuccess = function (event) {
 
 request.onerror = function (event) {
     // log error here
-    console.log("Error:" + event.target.errorCode);
+    console.log("Oh no!" + event.target.errorCode);
 };
 
 function saveRecord(record) {
@@ -26,10 +26,10 @@ function saveRecord(record) {
     const transaction = db.transaction(["pending"], "readwrite");
 
     // access your pending object store
-    const pendingStore = transaction.objectStore("pending");
+    const store = transaction.objectStore("pending");
 
     // add record to your store with add method.
-    pendingStore.add(record);
+    store.add(record);
 }
 
 function checkDatabase() {
@@ -37,9 +37,9 @@ function checkDatabase() {
     const transaction = db.transaction(["pending"], "readwrite");
 
     // access your pending object store
-    const pendingStore = transaction.objectStore("pending");
+    const store = transaction.objectStore("pending");
     // get all records from store and set to a variable
-    const getAll = pendingStore.getAll();
+    const getAll = store.getAll();
 
     getAll.onsuccess = function () {
         if (getAll.result.length > 0) {
@@ -57,10 +57,10 @@ function checkDatabase() {
                     const transaction = db.transaction(["pending", "readwrite"]);
 
                     // access your pending object store
-                    const pendingStore = transaction.objectStore("pending");
+                    const store = transaction.objectStore("pending");
 
                     // clear all items in your store
-                    pendingStore.clear();
+                    store.clear();
                 });
         }
     };
